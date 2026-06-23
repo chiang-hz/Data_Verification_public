@@ -1,0 +1,43 @@
+{
+  "name": "react",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "main": "src/index.tsx",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "^5.0.0",
+    "@mui/material": "7.0.2",
+    "@emotion/styled": "11.14.0",
+    "@emotion/react": "11.14.0",
+    "diff-match-patch": "1.0.5",
+    "xml2js": "0.6.2",
+    "xlsx": "0.18.5",
+    "fuse.js": "7.1.0",
+    "ajv": "^8.12.0",
+    "@craco/craco": "^7.1.0",
+    "timers-browserify": "^2.0.12",
+    "stream-browserify": "^3.0.0",
+    "buffer": "^6.0.3",
+    "process": "^0.11.10"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "loader-utils": "3.2.1",
+    "typescript": "5.7.2"
+  },
+  "scripts": {
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}

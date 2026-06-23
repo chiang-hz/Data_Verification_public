@@ -1,0 +1,127 @@
+# ==============================================================
+# 決算書複核工具 - .gitignore
+# 專案架構：React (Create React App + CRACO) + Python FastAPI
+# ==============================================================
+
+# ---------------------------------------------------------------
+# 【Python 後端】
+# ---------------------------------------------------------------
+
+# 虛擬環境
+python_backend/venv/
+python_backend/.venv/
+venv/
+.venv/
+
+# Python 快取與編譯檔
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+
+# Python 套件雜湊檔（由 start_app.bat 自動產生，每台機器不同）
+python_backend/.requirements_hash
+
+# 測試與覆蓋率
+.pytest_cache/
+pytest-cache-files-*/
+.coverage
+htmlcov/
+*.egg-info/
+dist/
+build/
+
+# 環境設定檔（含敏感資訊，不應提交）
+.env
+.env.local
+.env.*.local
+*.env
+
+# ---------------------------------------------------------------
+# 【React 前端】
+# ---------------------------------------------------------------
+
+# 相依套件（安裝自 package.json，不需追蹤）
+node_modules/
+
+# 生產建置輸出
+build/
+
+# Create React App / CRACO 暫存
+.cache/
+.parcel-cache/
+
+# Environment variable files
+# .env is tracked (contains only BROWSER=none, no secrets)
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# ---------------------------------------------------------------
+# 【作業系統產生的檔案】
+# ---------------------------------------------------------------
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# ---------------------------------------------------------------
+# 【編輯器與 IDE】
+# ---------------------------------------------------------------
+
+# VS Code
+.vscode/
+!.vscode/extensions.json
+
+# JetBrains (PyCharm, WebStorm)
+.idea/
+*.iml
+
+# Vim / Emacs 暫存檔
+*.swp
+*.swo
+*~
+\#*\#
+
+# ---------------------------------------------------------------
+# 【日誌與暫存】
+# ---------------------------------------------------------------
+
+# npm / yarn 日誌
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# 其他日誌
+*.log
+logs/
+
+# 暫存目錄
+tmp/
+temp/
+
+.playwright-mcp/
+frontend-review-*.png
+
+# ---------------------------------------------------------------
+# 【測試與範例資料】
+# ---------------------------------------------------------------
+
+# 測試用報表及資料檔
+*.xml
+/*.txt
+test_*
