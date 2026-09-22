@@ -1,0 +1,191 @@
+/* src/components/FileManagerPanel.module.css */
+
+.panel {
+  background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+  border: 1px solid #dbe4f0;
+  border-radius: 20px;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+  transition: all 0.2s ease;
+  margin-bottom: 26px;
+}
+
+/* ── 標題列 ── */
+.header {
+  appearance: none;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  cursor: pointer;
+  user-select: none;
+  border: none;
+  background: #fff;
+  text-align: left;
+  transition: background 0.18s ease, box-shadow 0.18s ease;
+}
+.header:hover {
+  background: #f8fafc;
+}
+
+.header:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 2px #93c5fd;
+}
+
+.chevron {
+  color: #475569;
+  font-size: 0.95rem;
+  transform: rotate(-90deg);
+  transition: transform 0.18s ease;
+}
+
+.chevronExpanded {
+  transform: rotate(0deg);
+}
+
+.headerTitle {
+  font-size: 0.92em;
+  font-weight: 700;
+  color: #334155;
+  flex: 1;
+}
+
+.headerSummary {
+  font-size: 0.8em;
+  color: #64748b;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.summaryBadge {
+  padding: 1px 7px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.85em;
+}
+
+.toggleBtn {
+  font-size: 0.75em;
+  color: #475569;
+  white-space: nowrap;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid #dbe4f0;
+  background: #f8fafc;
+  font-weight: 700;
+}
+
+/* ── 展開區域 ── */
+.body {
+  padding: 0 20px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ── 拖放 / 上傳區 ── */
+.dropZone {
+  border: 2px dashed #cbd5e1;
+  border-radius: 14px;
+  padding: 18px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, box-shadow 0.15s, transform 0.15s;
+  background: linear-gradient(180deg, #f8fafc 0%, #fff 100%);
+}
+.dropZone:hover,
+.dropZone.dragging {
+  border-color: #6366f1;
+  background: #eef2ff;
+  box-shadow: 0 10px 24px rgba(99, 102, 241, 0.12);
+  transform: translateY(-1px);
+}
+
+.dropZone:focus-visible {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.dropZoneText {
+  font-size: 0.85em;
+  color: #64748b;
+}
+.dropZoneText strong {
+  color: #6366f1;
+}
+
+.dropZoneArrow {
+  display: inline-flex;
+  margin: 0 8px;
+  color: #2563eb;
+  font-weight: 700;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+/* ── 檔案卡片清單 ── */
+.fileGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.fileCard {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  font-size: 0.82em;
+  max-width: 280px;
+}
+
+.typeDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.cardName {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #1e293b;
+  font-weight: 500;
+}
+
+.cardMeta {
+  font-size: 0.85em;
+  color: #94a3b8;
+  white-space: nowrap;
+}
+
+.removeBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #cbd5e1;
+  font-size: 1em;
+  line-height: 1;
+  padding: 0;
+  flex-shrink: 0;
+}
+.removeBtn:hover {
+  color: #ef4444;
+}
+
+.emptyHint {
+  font-size: 0.83em;
+  color: #94a3b8;
+  font-style: italic;
+  padding: 4px 0;
+}

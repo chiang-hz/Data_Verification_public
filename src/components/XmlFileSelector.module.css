@@ -1,0 +1,303 @@
+/* src/components/XmlFileSelector.module.css */
+
+.selectorWrapper {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 12px 14px;
+  background: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-size: 0.82em;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 2px;
+}
+
+/* ── 目前選中的檔案顯示 ── */
+.currentFile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 7px;
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  font-size: 0.88em;
+  min-height: 34px;
+}
+
+.currentFile.autoSelected {
+  border-color: #6366f1;
+  background: #eef2ff;
+}
+
+.currentFile.manualSelected {
+  border-color: #10b981;
+  background: #f0fdf4;
+}
+
+.sourceBadge {
+  font-size: 0.7em;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 4px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.sourceBadge.auto {
+  background: #6366f1;
+  color: #fff;
+}
+
+.sourceBadge.manual {
+  background: #10b981;
+  color: #fff;
+}
+
+.typeBadge {
+  font-size: 0.7em;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.fileName {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #1e293b;
+  font-weight: 500;
+}
+
+.metaGroup {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.yearTag {
+  font-size: 0.78em;
+  color: #64748b;
+  flex-shrink: 0;
+}
+
+.reportTag {
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.75em;
+  color: #475569;
+}
+
+.clearBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #94a3b8;
+  font-size: 1em;
+  padding: 0 2px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.clearBtn:hover { color: #ef4444; }
+
+.noFile {
+  font-size: 0.85em;
+  color: #94a3b8;
+  font-style: italic;
+  padding: 4px 0;
+}
+
+/* ── 控制列（下拉 + 上傳）── */
+.controls {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.recommendedHint {
+  font-size: 0.75em;
+  color: #6366f1;
+}
+
+.poolSelect {
+  flex: 1 1 260px;
+  min-width: 0;
+  padding: 6px 8px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 0.84em;
+  background: #fff;
+  color: #334155;
+  cursor: pointer;
+}
+
+.poolSelect[multiple] {
+  min-height: 120px;
+  padding: 8px;
+}
+.poolSelect:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99,102,241,0.15);
+}
+
+.multiPicker {
+  flex: 1 1 320px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 240px;
+  overflow: auto;
+}
+
+.multiOption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #dbe4f0;
+  border-radius: 10px;
+  background: #fff;
+  color: #334155;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+}
+
+.multiOption:hover {
+  border-color: #93c5fd;
+  background: #f8fbff;
+}
+
+.multiOptionSelected {
+  border-color: #10b981;
+  background: #f0fdf4;
+  box-shadow: inset 0 0 0 1px rgba(16, 185, 129, 0.2);
+}
+
+.multiOptionMain {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  flex: 1;
+}
+
+.multiOptionName {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #1e293b;
+  font-weight: 500;
+}
+
+.multiOptionMeta {
+  color: #64748b;
+  font-size: 0.76em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.emptyPool {
+  border: 1px dashed #cbd5e1;
+  border-radius: 10px;
+  background: #fff;
+  padding: 14px 12px;
+  color: #94a3b8;
+  font-size: 0.82em;
+}
+
+.uploadLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 0.82em;
+  font-weight: 500;
+  color: #475569;
+  background: #fff;
+  cursor: pointer;
+  white-space: nowrap;
+  flex: 0 0 auto;
+  transition: border-color 0.15s, background 0.15s;
+}
+.uploadLabel:hover {
+  border-color: #6366f1;
+  background: #f5f3ff;
+  color: #6366f1;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.hint {
+  font-size: 0.75em;
+  color: #94a3b8;
+  margin-top: 1px;
+}
+
+.multiSelectedList {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.multiTag {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #cbd5e1;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #e2e8f0;
+  color: #334155;
+  font-size: 0.74em;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.multiTag:hover {
+  border-color: #94a3b8;
+  background: #cbd5e1;
+}
+
+@media (max-width: 640px) {
+  .controls {
+    align-items: stretch;
+  }
+
+  .multiOption {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .multiOptionMeta {
+    white-space: normal;
+  }
+
+  .uploadLabel {
+    justify-content: center;
+    width: 100%;
+  }
+}

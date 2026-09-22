@@ -1,0 +1,90 @@
+/* src/index.css */
+
+/* --- 全域設計變數 (Modern Palette) --- */
+:root {
+  /* 主色調：更專業的深藍色系 */
+  --color-primary: #2563eb; /* Royal Blue */
+  --color-primary-dark: #1e40af;
+  --color-primary-light: #eff6ff;
+
+  /* 功能色 */
+  --color-secondary: #64748b; /* Slate Gray */
+  --color-success: #10b981; /* Emerald */
+  --color-danger: #ef4444; /* Red */
+  --color-warning: #f59e0b; /* Amber */
+  --color-info: #3b82f6;
+
+  /* 背景與表面 */
+  --color-background: #f1f5f9; /* 非常淡的灰藍色背景 */
+  --color-surface: #ffffff;
+  --color-surface-hover: #f8fafc;
+
+  /* 文字顏色 */
+  --color-text-primary: #1e293b; /* 深灰黑，比純黑柔和 */
+  --color-text-secondary: #64748b;
+  --color-text-on-primary: #ffffff;
+
+  /* 邊框與圓角 */
+  --border-radius: 12px; /* 更圓潤的導角 */
+  --border-radius-sm: 6px;
+  --border-color: #e2e8f0;
+
+  /* 現代化陰影 (Soft Shadows) */
+  --box-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --box-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --box-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+  /* 字體 */
+  --font-family-sans-serif: "Inter", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Helvetica Neue", "Noto Sans TC", sans-serif;
+  --font-family-monospace: "JetBrains Mono", "Source Code Pro", Menlo, Consolas,
+    monospace;
+}
+
+/* --- Global Styles --- */
+body {
+  margin: 0;
+  font-family: var(--font-family-sans-serif);
+  background-color: #f1f5f9; /* 稍微深一點的灰藍色，增加對比 */
+  color: var(--color-text-primary);
+}
+
+/* 讓所有按鈕與輸入框有預設過渡效果 */
+button,
+input,
+select,
+textarea {
+  transition: all 0.2s ease-in-out;
+  font-family: inherit;
+}
+
+/* 滾動條美化 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

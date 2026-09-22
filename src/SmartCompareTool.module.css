@@ -1,0 +1,499 @@
+/* src/SmartCompareTool.module.css */
+
+.pageContainer {
+  font-family: var(--font-family-sans-serif);
+}
+
+/* 2. 卡片樣式 */
+.card {
+  border: none;
+  border-radius: 18px;
+  padding: 26px 28px;
+  margin-bottom: 24px;
+  background-color: #ffffff;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+}
+
+.cardTitle {
+  color: #1e293b;
+  margin-top: 0;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 1.25em;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.infoTooltip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  border: 1px solid #bfdbfe;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.2;
+  cursor: help;
+  outline: none;
+}
+
+.infoTooltipPanel {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 10px);
+  z-index: 30;
+  display: none;
+  width: min(520px, 80vw);
+  padding: 14px 16px;
+  border: 1px solid #bfdbfe;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18);
+  color: #334155;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+.infoTooltip:hover .infoTooltipPanel,
+.infoTooltip:focus .infoTooltipPanel,
+.infoTooltip:focus-within .infoTooltipPanel {
+  display: block;
+}
+/* 3. 上傳區塊佈局 (雙欄) */
+.uploadContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 24px;
+  margin-bottom: 30px;
+}
+
+.uploadCard {
+  background: white;
+  border-radius: 12px;
+  /* 這裡使用內部虛線框設計，外層不設邊框 */
+  border: none;
+}
+
+/* 檔案拖放/點擊區 (灰色虛線) */
+.fileDropZone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 20px;
+  cursor: pointer;
+  min-height: 150px;
+  text-align: center;
+  background-color: #f8fafc;
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.fileDropZone:hover {
+  background-color: #eff6ff;
+  border-color: #2563eb;
+}
+
+/* 上傳文字說明 */
+.uploadTextMain {
+  font-weight: 600;
+  color: #64748b;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-size: 0.95em;
+}
+
+/* 藍色藥丸按鈕樣式 */
+.customFileUpload {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  background-color: #2563eb;
+  color: #ffffff;
+  border-radius: 50px;
+  font-weight: 600;
+  box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
+  transition: all 0.2s ease;
+  pointer-events: none; /* 讓點擊穿透到 label */
+}
+
+/* 強制縮小按鈕內的圖示 */
+.customFileUpload svg {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+}
+
+/* 檔名顯示 */
+.fileNameDisplay {
+  margin-top: 10px;
+  font-family: monospace;
+  font-size: 13px;
+  color: #334155;
+  background-color: #e2e8f0;
+  padding: 6px 12px;
+  border-radius: 6px;
+  max-width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 4. 滑桿與設定區 */
+.sliderGroup {
+  margin-top: 30px;
+  padding: 20px;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.sliderContainer {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.sliderContainer span {
+  font-size: 0.9em;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.sliderContainer input[type="range"] {
+  flex-grow: 1;
+  webkit-appearance: none;
+  height: 6px;
+  background: #cbd5e1;
+  border-radius: 5px;
+  outline: none;
+}
+
+.sliderContainer input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #2563eb;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  transition: transform 0.1s;
+}
+
+.sliderContainer input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+.sliderValue {
+  font-weight: bold;
+  color: #2563eb;
+  font-family: monospace;
+}
+
+/* 5. 動作按鈕區 */
+.actionSection {
+  text-align: center;
+  margin: 30px 0;
+  display: grid;
+  gap: 14px;
+}
+
+.actionStatusBanner {
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+}
+
+.actionStatusBanner strong {
+  color: #0f172a;
+}
+
+.actionStatusBanner span {
+  color: #64748b;
+  font-size: 14px;
+}
+
+.actionStatusBannerPending {
+  border: 1px solid #fde68a;
+  background: #fffbeb;
+}
+
+.actionStatusBannerReady {
+  border: 1px solid #99f6e4;
+  background: #ecfdf5;
+}
+
+.button {
+  padding: 12px 40px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: #2563eb;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
+  transition: all 0.2s ease;
+}
+
+.button:hover:not(:disabled) {
+  background-color: #1e40af;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(37, 99, 235, 0.4);
+}
+
+.button:disabled {
+  background-color: #94a3b8;
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.loadingIndicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+  color: #2563eb;
+  font-weight: 500;
+}
+
+.spinner {
+  border: 3px solid rgba(37, 99, 235, 0.1);
+  border-left-color: #2563eb;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.error {
+  color: #b91c1c;
+  margin-top: 15px;
+  padding: 15px;
+  background-color: #fef2f2;
+  border-radius: 8px;
+  text-align: center;
+  border-left: 4px solid #ef4444;
+}
+
+.inputGroup label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.inputGroup input[type="file"] {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+}
+
+.feedbackSuccess {
+  color: var(--color-success);
+  font-size: 0.9em;
+  margin-top: 8px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.feedbackSuccess::before {
+  content: "✓";
+  font-weight: bold;
+}
+
+.sliderGroup {
+  margin-top: 30px;
+  padding: 20px;
+  background: #fff;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow-sm);
+}
+
+.sliderContainer input[type="range"] {
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 4px;
+}
+
+.sliderContainer input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 24px;
+  height: 24px;
+  background: var(--color-primary);
+  border: 4px solid #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* 6. 結果表格優化 */
+.resultsTableContainer {
+  margin-top: 20px;
+  overflow-x: auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.resultsTable {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1000px;
+}
+
+.resultsTable th {
+  background-color: #f1f5f9;
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  color: #334155;
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 2px solid #cbd5e1;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.resultsTable td {
+  border-bottom: 1px solid #f1f5f9;
+  padding: 14px 16px;
+  text-align: left;
+  vertical-align: top;
+  color: #1e293b;
+}
+
+.resultsTable tbody tr:hover {
+  background-color: #eff6ff;
+}
+
+/* 差異標示 */
+.rowDiff {
+  background-color: #fffbeb;
+} /* 黃 */
+.rowOnly1 {
+  background-color: #fef2f2;
+} /* 紅 */
+.rowOnly2 {
+  background-color: #f0fdf4;
+} /* 綠 */
+
+.valueJson {
+  display: inline-block;
+  background-color: #fee2e2;
+  color: #991b1b;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-family: monospace;
+}
+
+.valueXml {
+  display: inline-block;
+  background-color: #dcfce7;
+  color: #166534;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-family: monospace;
+}
+
+.fuzzyMatch {
+  font-style: italic;
+  color: #64748b;
+}
+
+/* 數值膠囊樣式 */
+.valueJson {
+  display: inline-block;
+  background-color: #fee2e2;
+  color: #991b1b;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-family: var(--font-family-monospace);
+}
+
+.valueXml {
+  display: inline-block;
+  background-color: #dcfce7;
+  color: #166534;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-family: var(--font-family-monospace);
+}
+
+/* 箭頭指示 */
+.rowDiff td:nth-child(5)::after {
+  content: " → ";
+  color: #94a3b8;
+  margin: 0 8px;
+}
+
+/* 篩選下拉選單樣式 */
+.selectInput {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background-color: white;
+  font-weight: 600;
+  color: #1e293b;
+  outline: none;
+  cursor: pointer;
+}
+
+.selectInput:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+/* 狀態標籤額外樣式 (若原本沒有) */
+.valueWarning {
+  background-color: #fff7ed;
+  color: #c2410c;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.summaryAndFilter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed #e2e8f0;
+  flex-wrap: wrap;
+  gap: 1rem;
+}

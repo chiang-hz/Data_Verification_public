@@ -1,0 +1,496 @@
+/* src/FinancialRatioTool.module.css */
+
+.financialRatioTool {
+  font-family: var(--font-family-sans-serif);
+}
+
+.errorMessage,
+.loadingError {
+  color: #b91c1c;
+  margin-bottom: 24px;
+  padding: 16px;
+  border-left: 4px solid #ef4444;
+  background-color: #fef2f2;
+  border-radius: 8px;
+  font-weight: 500;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+/* 上傳區塊：更明顯的拖放區 */
+.uploadCardsContainer {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(350px, 1fr)
+  ); /* 稍微加大最小寬度 */
+  gap: 24px;
+  margin-bottom: 30px;
+}
+
+.uploadCard {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  padding: 20px; /* 增加內距，讓內部的虛線框有留白 */
+  border: none;
+}
+
+/* 改造：讓 fileDropZone 看起來像其他頁面的 uploadContainer */
+.fileDropZone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 20px;
+  cursor: pointer;
+  min-height: 200px;
+  text-align: center;
+
+  /* 灰色虛線風格 */
+  background-color: #f8fafc;
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.fileDropZone:hover {
+  background-color: #eff6ff;
+  border-color: #2563eb;
+}
+
+/* 標題文字 */
+.uploadTextMain {
+  font-weight: 600;
+  color: #64748b;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  font-size: 0.95em;
+}
+/* --- 新增：藍色藥丸按鈕樣式 --- */
+.customFileUpload {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  background-color: #2563eb;
+  color: #ffffff;
+  border-radius: 50px;
+  font-weight: 600;
+  box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
+  transition: all 0.2s ease;
+  pointer-events: none; /* 讓點擊穿透到 label */
+}
+
+/* 強制縮小按鈕內的圖示 */
+.customFileUpload svg {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+}
+
+.fileDropZone:hover .customFileUpload {
+  background-color: #1e40af;
+  transform: translateY(-2px);
+}
+/* --- 新增：檔名顯示區 --- */
+.selectedFilesList {
+  margin-top: 15px;
+  width: 90%;
+}
+
+.fileNameDisplay {
+  font-family: monospace;
+  font-size: 13px;
+  color: #334155;
+  background-color: #e2e8f0;
+  padding: 8px 12px;
+  border-radius: 6px;
+  text-align: left;
+  word-break: break-all;
+}
+
+.fileNameDisplay strong {
+  color: #0f172a;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.fileNameDisplay ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+/* 卡片與輸入區 */
+.card {
+  border: none;
+  border-radius: 18px;
+  padding: 26px 28px;
+  margin-bottom: 24px;
+  background-color: #ffffff;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+}
+
+.controlRailCard {
+  background: linear-gradient(180deg, #fcfefd 0%, #f8fafc 100%);
+  border: 1px solid #dbe4f0;
+}
+
+.cardTitle {
+  color: #1e293b;
+  margin-top: 0;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 1.25em;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.infoTooltip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  border: 1px solid #bfdbfe;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.2;
+  cursor: help;
+  outline: none;
+}
+
+.infoTooltipPanel {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 10px);
+  z-index: 30;
+  display: none;
+  width: min(520px, 80vw);
+  padding: 14px 16px;
+  border: 1px solid #bfdbfe;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18);
+  color: #334155;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+.infoTooltip:hover .infoTooltipPanel,
+.infoTooltip:focus .infoTooltipPanel,
+.infoTooltip:focus-within .infoTooltipPanel {
+  display: block;
+}
+
+/* --- 手動輸入區 --- */
+.manualInputs {
+  margin-top: 10px;
+}
+
+.manualInputsCompact {
+  margin-top: 10px;
+  display: grid;
+  gap: 14px;
+}
+
+.manualInputFields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+.manualInputFields.readonly div {
+  opacity: 0.8;
+}
+
+.manualInputFields label {
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #64748b;
+  font-size: 0.95em;
+}
+
+.manualInputFields input {
+  width: 100%;
+  padding: 12px;
+  box-sizing: border-box;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: all 0.2s;
+}
+.manualInputFields input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.manualInputFieldsCompact {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  align-items: end;
+}
+
+.manualInputFieldsCompact label {
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #64748b;
+  font-size: 0.92em;
+}
+
+.manualInputFieldsCompact input,
+.controlRailSelect {
+  width: 100%;
+  padding: 11px 12px;
+  box-sizing: border-box;
+  border: 1px solid #dbe4f0;
+  border-radius: 10px;
+  font-size: 15px;
+  background: #fff;
+}
+
+.controlRail {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.controlRailLabel {
+  font-weight: 700;
+  color: #475569;
+}
+
+.controlRailSelect {
+  width: auto;
+  min-width: 220px;
+}
+
+.controlRailStatus {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #ecfeff;
+  color: #0f766e;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.compactActionSlot {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.resultControlRail {
+  margin-bottom: 20px;
+  padding: 18px 18px 20px;
+  border: 1px solid #dbe4f0;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #fcfefd 0%, #f8fafc 100%);
+}
+
+.calculateButtonContainer {
+  text-align: center;
+  /* 【關鍵修正 1】將上邊距從 30px 增加到 60px，留出足夠的呼吸空間 */
+  padding-top: 20px;
+  margin-bottom: 20px;
+}
+
+.calculateButton {
+  padding: 12px 40px; /* 稍微加寬按鈕 */
+  font-size: 16px;
+  font-weight: 700;
+
+  /* 【關鍵修正 2】確保預設就是「實心藍底白字」，與全站風格統一 */
+  color: #ffffff;
+  background-color: #2563eb;
+
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
+  transition: all 0.2s ease;
+}
+
+.calculateButton.secondary {
+  background-color: white;
+  color: #64748b;
+  border: 2px solid #e2e8f0;
+  box-shadow: none;
+}
+.calculateButton.secondary:hover {
+  border-color: #2563eb;
+  color: #2563eb;
+}
+
+/* Hover 狀態優化 */
+.calculateButton:hover:not(:disabled) {
+  /* 背景變深藍，文字保持白色，對比度最高 */
+  background-color: #1e40af;
+  color: #ffffff;
+
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(37, 99, 235, 0.4);
+}
+
+.calculateButton:disabled {
+  background-color: #94a3b8;
+  color: #f1f5f9;
+  opacity: 0.8;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* 結果區塊 */
+.resultsTable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+.resultsTable th {
+  background-color: #f1f5f9;
+  font-weight: 700;
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 2px solid #cbd5e1;
+  color: #334155;
+}
+.resultsTable td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #1e293b;
+}
+.resultsTable tbody tr:nth-child(even) {
+  background-color: #f8fafc;
+}
+.resultsTable tbody tr:hover {
+  background-color: #eff6ff;
+}
+/* --- Placeholder & Loading --- */
+.placeholderContainer {
+  text-align: center;
+  padding: 60px 20px;
+  color: #64748b;
+}
+.placeholderTextMain {
+  font-size: 1.1em;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #1e293b;
+}
+.collapsibleHeader,
+.collapsibleHeaderButton {
+  width: 100%;
+  cursor: pointer;
+  padding: 14px 16px;
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  border: 1px solid #dbe4f0;
+  border-bottom: none;
+  border-radius: 16px 16px 0 0;
+  transition: background-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  text-align: left;
+}
+
+.collapsibleHeaderButton {
+  appearance: none;
+}
+
+.collapsibleHeader:hover,
+.collapsibleHeaderButton:hover {
+  background-color: #f1f5f9;
+  box-shadow: inset 0 0 0 1px rgba(37, 99, 235, 0.1);
+}
+
+.collapsibleHeaderText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.collapsibleHeaderText strong,
+.collapsibleHeader h3 {
+  margin: 0;
+  font-size: 1.05em;
+  font-weight: 800;
+  color: var(--color-text-primary);
+}
+
+.collapsibleHeaderText small {
+  color: #64748b;
+  font-size: 12px;
+}
+
+.collapseToggleBadge,
+.collapseToggleButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 999px;
+  padding: 7px 11px;
+  color: var(--color-primary);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.collapseToggleArrow {
+  font-size: 12px;
+}
+
+.resultsTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.resultsTable th {
+  background-color: #f1f5f9;
+  position: sticky; /* 固定表頭 */
+  top: 0;
+  z-index: 10;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.resultsTable td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f1f5f9;
+  color: var(--color-text-primary);
+}
+
+/* 數據預覽列表 */
+.dataPreviewList {
+  font-family: var(--font-family-monospace);
+  columns: 2;
+  column-gap: 40px;
+  font-size: 13px;
+  line-height: 1.8;
+  padding: 20px !important;
+}
+
+.dataPreviewList li {
+  break-inside: avoid;
+  padding: 4px 0;
+  border-bottom: 1px dashed #e2e8f0;
+}

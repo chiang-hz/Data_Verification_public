@@ -1,0 +1,316 @@
+/* src/StructureAnalysisTool.module.css */
+
+/* 1. 卡片容器 */
+.card {
+  border: none;
+  padding: 30px;
+  margin-bottom: 24px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.card h2,
+.card h3 {
+  margin-top: 0;
+  color: #1e293b;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 15px;
+  font-size: 1.25em;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+.infoBox {
+  border-left: 4px solid #3b82f6;
+  background-color: #f0f9ff;
+  padding: 20px;
+  margin-bottom: 25px;
+  border-radius: 8px;
+  font-size: 15px;
+  color: #1e293b;
+  line-height: 1.6;
+}
+.infoBox p,
+.infoBox ol {
+  margin: 0 0 10px 0;
+  line-height: 1.6;
+  color: #0c5460;
+}
+.infoBox ol {
+  padding-left: 20px;
+}
+.infoBox strong {
+  font-weight: 600;
+}
+.infoBox p:last-child,
+.infoBox ol:last-child {
+  margin-bottom: 0;
+}
+/* 3. 上傳區塊 (對齊決算概要頁面) */
+.uploadContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  padding: 40px;
+  background-color: #f8fafc;
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  min-height: 120px;
+}
+
+.uploadContainer:hover {
+  border-color: #2563eb;
+  background-color: #eff6ff;
+}
+.customFileUpload {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 28px;
+  background-color: #2563eb; /* 實心藍 */
+  color: #ffffff;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
+  transition: all 0.2s ease;
+}
+/* 【新增】強制縮小按鈕內的圖示，與首頁一致 */
+.customFileUpload svg {
+  width: 20px;
+  height: 20px;
+  min-width: 20px; /* 防止被壓縮 */
+}
+.customFileUpload:hover {
+  background-color: #1e40af;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(37, 99, 235, 0.4);
+}
+.comparisonTextarea {
+  width: 100%;
+  padding: 16px;
+  font-family: monospace; /* 確保等寬 */
+  font-size: 15px;
+  line-height: 1.8;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+  resize: vertical;
+  min-height: 200px;
+  white-space: pre-wrap;
+}
+
+.comparisonTextarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+/* 5. 按鈕樣式 */
+.button {
+  padding: 12px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  background-color: #2563eb;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+  transition: all 0.2s ease;
+}
+
+.button:hover:not(:disabled) {
+  background-color: #1e40af;
+  transform: translateY(-2px);
+}
+
+.button:disabled {
+  background-color: #94a3b8;
+  cursor: not-allowed;
+}
+.fileNameDisplay {
+  font-family: monospace;
+  font-size: 14px;
+  color: #334155;
+  background-color: #e2e8f0;
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+.fileUploadArea {
+  border: 2px dashed var(--color-primary);
+  padding: 30px;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 20px;
+  background-color: #f7faff;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  border-radius: var(--border-radius);
+}
+.fileUploadArea.dragging {
+  background-color: #e0f0ff;
+  border-color: var(--color-primary-dark);
+}
+.fileUploadArea p {
+  margin: 10px 0 0 0;
+  color: var(--color-primary-dark);
+  font-size: 1.1em;
+  font-weight: 500;
+}
+
+.errorMessage {
+  color: var(--color-danger);
+  margin-bottom: 20px;
+  padding: 15px 20px;
+  border: 1px solid rgba(220, 53, 69, 0.4);
+  background-color: rgba(220, 53, 69, 0.1);
+  border-radius: var(--border-radius);
+}
+
+/* 6. 解析結果顯示區 (保持整潔) */
+.parsedDataDisplay {
+  margin-top: 0;
+}
+.parsedDataDisplay ul {
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+.parsedDataDisplay li {
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+.textComparisonContainer {
+  display: flex;
+  gap: 20px;
+  margin-top: 25px;
+}
+
+.textInputArea,
+.highlightedTextArea {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.textInputArea h3,
+.highlightedTextArea h3 {
+  font-size: 1.1em;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.textInputArea textarea {
+  flex-grow: 1;
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 300px;
+}
+.textInputArea textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+
+.highlightedTextArea .highlightedTextContainer {
+  flex-grow: 1;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 15px;
+  background-color: #f8f9fa;
+  overflow: auto;
+  min-height: 300px;
+  line-height: 1.6;
+}
+
+.highlightedTextArea strong {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 1.1em;
+}
+
+.diffDisplay {
+  font-family: monospace;
+  font-size: 15px;
+  line-height: 1.8;
+  padding: 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background-color: #fff;
+  white-space: pre-wrap;
+}
+.diffDisplay del {
+  background-color: rgba(239, 68, 68, 0.2);
+  text-decoration: line-through;
+  color: #991b1b;
+  padding: 0 2px;
+}
+.diffDisplay ins {
+  background-color: rgba(16, 185, 129, 0.2);
+  text-decoration: none;
+  color: #065f46;
+  font-weight: 600;
+  padding: 0 2px;
+}
+
+.errorMessage {
+  color: #b91c1c;
+  margin-bottom: 20px;
+  padding: 15px 20px;
+  border-left: 4px solid #ef4444;
+  background-color: #fef2f2;
+  border-radius: 8px;
+}
+
+.uploadCard {
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  border: 2px dashed #cbd5e1; /* 預設就有虛線框 */
+  transition: all 0.3s ease;
+  margin-bottom: 25px;
+  background-color: #f8fafc;
+}
+
+.uploadCard:hover {
+  border-color: var(--color-primary);
+  background-color: #eff6ff;
+  transform: translateY(-2px);
+}
+
+.fileDropZone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  min-height: 150px;
+}
+
+.fileDropZone svg {
+  width: 48px;
+  height: 48px;
+  color: var(--color-primary);
+  margin-bottom: 15px;
+  opacity: 0.8;
+}
+
+.uploadTextMain {
+  font-size: 1.1em;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+}
