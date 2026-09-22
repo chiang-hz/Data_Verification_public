@@ -5,7 +5,6 @@ import FinancialRatioTool from "./FinancialRatioTool";
 import SmartCompareTool from "./SmartCompareTool.jsx";
 import FileManagerPanel from "./components/FileManagerPanel";
 import XmlFileSelector from "./components/XmlFileSelector";
-import { useFileManager } from "./contexts/FileManagerContext";
 
 const REVIEW_ACTIONS = [
   { key: "已確認正確", label: "已確認通過" },
@@ -20,12 +19,6 @@ const RESULT_FILTER_OPTIONS = [
   ["reviewed", "已審核(全)"],
   ["reviewed_text_modify", "已審核-修補文字說明"],
 ];
-
-const isValidKnowledgeRule = (rule) =>
-  typeof rule?.keyword === "string" &&
-  rule.keyword.trim().length > 0 &&
-  typeof rule?.warning === "string" &&
-  rule.warning.trim().length > 0;
 function App() {
   const [activeTab, setActiveTab] = useState("comparison");
   const [tabMenuOpen, setTabMenuOpen] = useState(false);
@@ -60,6 +53,7 @@ function App() {
     setActiveResultKey,
     compareError,
     exceptionSummaryText,
+    activeWorkspace,
     highlightLookup,
     textFocusedResults,
     getMetricStatusLabel,
@@ -79,50 +73,6 @@ function App() {
     selectedFiles,
     loadedComparisonFileCount,
   } = useComparisonTool();
-
-  const { files } = useFileManager();
-
-  const knowledgeBaseFiles = useMemo(
-    () => files.filter((file) => file.detectedType === "knowledgeBase"),
-    [files]
-  );
-
-  const knowledgeBaseSummaries = useMemo(
-    () =>
-      knowledgeBaseFiles.map((file) => {
-        const parsedRules = Array.isArray(file.parsedData) ? file.parsedData : [];
-        const validRules = parsedRules
-          .filter(isValidKnowledgeRule)
-          .map((rule) => ({
-            keyword: rule.keyword.trim(),
-            warning: rule.warning.trim(),
-          }));
-
-        return {
-          id: file.id,
-          fileName: file.fileName,
-          parseError: file.parseError || "",
-          totalRuleCount: parsedRules.length,
-          validRuleCount: validRules.length,
-          invalidRuleCount: parsedRules.length - validRules.length,
-          previewRules: validRules,
-        };
-      }),
-    [knowledgeBaseFiles]
-  );
-
-  const knowledgeBaseFileCount = knowledgeBaseSummaries.length;
-  const knowledgeBaseValidFileCount = knowledgeBaseSummaries.filter((file) => !file.parseError).length;
-  const knowledgeBaseInvalidFileCount = knowledgeBaseSummaries.filter((file) => !!file.parseError).length;
-  const knowledgeBaseValidRuleCount = knowledgeBaseSummaries.reduce(
-    (total, file) => total + file.validRuleCount,
-    0
-  );
-  const knowledgeBaseMalformedRuleCount = knowledgeBaseSummaries.reduce(
-    (total, file) => total + file.invalidRuleCount,
-    0
-  );
-  const knowledgeBaseIssueCount = knowledgeBaseInvalidFileCount + knowledgeBaseMalformedRuleCount;
 
   const metricColumns = useMemo(
     () =>
@@ -784,76 +734,7 @@ function App() {
             </section>
 
             <section className={styles.card}>
-              <div className={styles.knowledgePanelHeader}>
-                <div>
-                  <h2>4. 知識規則</h2>
-                  <p className={styles.cardHint}>系統只會使用有效規則，格式錯誤或欄位不完整的項目會略過。</p>
-                </div>
-              </div>
-              {!knowledgeBaseFileCount ? (
-                <div className={styles.workflowPlaceholder}>
-                  <strong>尚未載入知識規則 JSON。</strong>
-                  <span>可從資料中心上傳 audit.json，檢查目前規則是否已正確載入。</span>
-                </div>
-              ) : (
-                <div className={styles.knowledgePanel}>
-                  <div className={styles.knowledgeSummaryGrid}>
-                    <div className={styles.knowledgeSummaryCard}>
-                      <span>規則檔案</span>
-                      <strong>{knowledgeBaseFileCount}</strong>
-                    </div>
-                    <div className={`${styles.knowledgeSummaryCard} ${styles.knowledgeSummaryCardGood}`}>
-                      <span>有效規則</span>
-                      <strong>{knowledgeBaseValidRuleCount}</strong>
-                    </div>
-                    <div
-                      className={`${styles.knowledgeSummaryCard} ${
-                        knowledgeBaseIssueCount ? styles.knowledgeSummaryCardWarn : styles.knowledgeSummaryCardNeutral
-                      }`}
-                    >
-                      <span>待修正</span>
-                      <strong>{knowledgeBaseIssueCount}</strong>
-                    </div>
-                  </div>
-
-                  <section className={styles.knowledgeCard}>
-                    <div className={styles.knowledgeCardHeader}>
-                      <strong>檔案狀態</strong>
-                      <span>{knowledgeBaseValidFileCount} / {knowledgeBaseFileCount} 份可用</span>
-                    </div>
-                    <div className={styles.knowledgeFileList}>
-                      {knowledgeBaseSummaries.map((file) => (
-                        <article key={file.id} className={styles.knowledgeFileItem}>
-                          <div className={styles.knowledgeFileTop}>
-                            <strong>{file.fileName}</strong>
-                            <span
-                              className={`${styles.knowledgeStateBadge} ${
-                                file.parseError
-                                  ? styles.knowledgeStateError
-                                  : file.invalidRuleCount > 0
-                                    ? styles.knowledgeStateWarn
-                                    : styles.knowledgeStateGood
-                              }`}
-                            >
-                              {file.parseError ? "解析失敗" : file.invalidRuleCount > 0 ? "部分可用" : "可用"}
-                            </span>
-                          </div>
-                          <div className={styles.knowledgeFileMeta}>
-                            <span>有效 {file.validRuleCount}</span>
-                            <span>原始 {file.totalRuleCount}</span>
-                            {file.invalidRuleCount > 0 ? <span>待修正 {file.invalidRuleCount}</span> : null}
-                          </div>
-                          {file.parseError ? <p className={styles.knowledgeFileError}>{file.parseError}</p> : null}
-                        </article>
-                      ))}
-                    </div>
-                  </section>
-                </div>
-              )}
-            </section>
-
-            <section className={styles.card}>
-              <h2>5. Dashboard</h2>
+              <h2>4. 核驗儀表板</h2>
               {!hasComparisonResults ? (
                 <div className={styles.workflowPlaceholder}>
                   <strong>核驗完成後，這裡會顯示批次摘要、結果清單與明細檢視。</strong>

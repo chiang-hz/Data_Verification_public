@@ -181,20 +181,13 @@ export function FileManagerProvider({ children }) {
       let reportName = file.name.replace(/\.[^/.]+$/, "");
       let year = "";
       let parsedData = null;
-      let parseError = "";
 
       if (ext === ".json") {
         detectedType = "knowledgeBase";
         try {
-          const parsedJson = JSON.parse(rawContent);
-          if (!Array.isArray(parsedJson)) {
-            parseError = "Knowledge rule JSON must be an array.";
-          } else {
-            parsedData = parsedJson;
-          }
-        } catch (error) {
+          parsedData = JSON.parse(rawContent);
+        } catch {
           parsedData = null;
-          parseError = `JSON parse failed: ${error.message}`;
         }
       } else {
         detectedType = detectXmlReportType(rawContent);
@@ -210,7 +203,6 @@ export function FileManagerProvider({ children }) {
         year,
         rawContent,
         parsedData,
-        parseError,
         addedAt: Date.now(),
       });
     }
